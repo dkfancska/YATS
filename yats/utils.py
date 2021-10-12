@@ -2,7 +2,7 @@ def get_version():
     import sys
     version = sys.version.split()[0]
 
-    return version[0].strip()
+    return version.split()[0].strip()
 
 def datetime_to_datestr(date):
     if date:
@@ -32,3 +32,8 @@ def check_requirements():
     assert Version.startswith("3.8"), "snscrape requires python version >= 3.8. Please create a conda/virtual environment with python version >= 3.8"
     if get_platform() != "Linux":
         print("it seems you are not running this code on Linux. Please specify a path for storing backups (using the backup_folder argument) or disable backups by setting do_backup to false.")
+
+def build_tree(conversation):
+    '''convert list of tweets belonging to a conversation to tree.'''
+    pass
+

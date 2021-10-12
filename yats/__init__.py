@@ -10,10 +10,10 @@ from typing import Union
 from enum import Enum, auto
 try:
     from .utils import *
-    from .snscrape import TwitterSearchScraper, Tweet, User
+    from .snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, User, TwitterTweetScraperMode
 except ImportError: 
     from yats.utils import *
-    from yats.snscrape import TwitterSearchScraper, Tweet, User
+    from yats.snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, User, TwitterTweetScraperMode
 
 class BACKEND(Enum):
     tweepy = auto()
@@ -109,6 +109,27 @@ class TweetSerializer:
         return JSON
 
 
+class ConversationTree:
+    def __init__(self, *args):
+        self.tweets = args
+        self.leaves = []
+
+    def build_tree(self):
+        pass
+
+    def height(self) -> int:
+        '''return height/depth of tree.'''
+        return 0
+
+    def count(self) -> int:
+        '''return number of tweets.'''
+        return len(self.tweets)
+
+    def len(self):
+        '''return number of leaves, which is the same as number of conversation threads.''' 
+        return 0
+
+
 class TweepyWrapper:
     def __init__(self, **kwargs):
         pass
@@ -136,8 +157,24 @@ class SNScrapeWrapper:
 
         return results
 
-    def conversations(self):
-        pass
+    def conversation(self, conversation_id: Union[str, int], do_backup: bool=False, backup_folder: Union[str, pathlib.Path]="/tmp/.backup/"):
+        '''get conversation using TwitterTweetScraper with the enum value of TwitterTweetScraperMode.RECURSE'''
+        results = []
+        conv_generator = TwitterTweetScraper(
+            str(conversation_id), 
+            TwitterTweetScraperMode.RECURSE
+        ).get_items()
+        for tweet in conv_generator:
+            self._results_backup.append(tweet)
+            results.append(self.serializer(tweet))
+        # create a backup archive in case the user fails to save the returned results object.
+        if do_backup:
+            os.makedirs(backup_folder, exist_ok=True)
+            fname = os.path.join(backup_folder, f"{time.time()}")
+            with open(fname, "wb") as f:
+                pkl.dump(self._results_backup, f)
+
+        return results
 
 
 class Scraper:
@@ -155,6 +192,9 @@ class Scraper:
 
     def __call__(self, query, **kwargs):
         return self.engine(query, **kwargs)
+
+    def conversation(self, conversation_id, **kwargs):
+        return self.engine.conversation(conversation_id, **kwargs)
 
     @property
     def engine(self):
