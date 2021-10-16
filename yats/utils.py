@@ -32,8 +32,3 @@ def check_requirements():
     assert Version.startswith("3.8"), "\x1b[1msnscrape requires python version \x1b[0m\x1b[31;1m>= 3.8\x1b[0m\x1b[1m. Please create a conda/virtual environment with python version \x1b[0m\x1b[31;1m>= 3.8\x1b[0m"
     if get_platform() != "Linux":
         print("it seems you are not running this code on Linux. Please specify a path for storing backups (using the backup_folder argument) or disable backups by setting do_backup to false.")
-
-def build_tree(conversation):
-    '''convert list of tweets belonging to a conversation to tree.'''
-    pass
-
