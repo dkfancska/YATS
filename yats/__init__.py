@@ -6,14 +6,17 @@ import pathlib
 import os, time
 import datetime
 import pickle as pkl
-from typing import Union
 from enum import Enum, auto
+from typing import Union, List
 try:
     from .utils import *
-    from .snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, User, TwitterTweetScraperMode
+    from .snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, Gif, User, Photo, Video, Place, Medium, VideoVariant, Coordinates, TwitterTweetScraperMode
 except ImportError: 
     from yats.utils import *
-    from yats.snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, User, TwitterTweetScraperMode
+    from yats.snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, Gif, User, Photo, Video, Place, Medium, VideoVariant, Coordinates, TwitterTweetScraperMode
+except SyntaxError:
+    pass
+check_requirements()
 
 class BACKEND(Enum):
     tweepy = auto()
@@ -34,7 +37,7 @@ class TweetSerializer:
         if user is None:
             return user
         if not isinstance(user, User):
-            raise TypeError(f"user should be of type None or User. {user} was found instead.")
+            raise TypeError(f"user should be of type None or User. {type(user)} was found instead.")
         
         JSON["id"] = user.id
         JSON["username"] = user.username
@@ -60,6 +63,119 @@ class TweetSerializer:
 
         return JSON
 
+    def _serialize_photo(self, photo: Union[Photo, None]):
+        JSON = {}
+
+        if photo is None:
+            return photo
+        if not isinstance(photo, Photo):
+            raise TypeError(f"photo should be of type None or Photo. {type(photo)} was found instead.")
+
+        JSON["preview_url"] = photo.previewUrl
+        JSON["full_url"] = photo.fullUrl
+
+        return JSON
+
+    def _serialize_media(self, media: Union[List[Medium], None]):
+        JSON = []
+
+        if media is None:
+            return []
+        for i, medium in enumerate(media):
+            if not isinstance(medium, Medium):
+                raise TypeError(f"media should be of type None or List[Medium]. However found {type(medium)} at index={i} instead.")
+        for medium in media:
+            if isinstance(medium, Photo):
+                JSON.append(self._serialize_photo(medium))
+            elif isinstance(medium, Video):
+                JSON.append(self._serialize_video(medium))
+            elif isinstance(medium, Gif):
+                JSON.append(self._serialize_gif(medium))
+
+        return JSON
+
+    def _serialize_gif(self, gif: Union[Gif, None]):
+        JSON = {}
+
+        if gif is None:
+            return gif
+        if not isinstance(gif, Gif):
+            raise TypeError(f"gif should be of type None or Gif. {type(gif)} was found instead.")
+
+        JSON["thumbnail_url"] = gif.thumbnailUrl
+        JSON["variants"] = self._serialize_video_variants(gif.variants)  
+
+        return JSON
+
+    def _serialize_video(self, video: Union[Video, None]):
+        JSON = {}
+
+        if video is None:
+            return video
+        if not isinstance(video, Video):
+            raise TypeError(f"video should be of type None or Video. {type(video)} was found instead.")
+
+        JSON["thumbnail_url"] = video.thumbnailUrl
+        JSON["variants"] = self._serialize_video_variants(video.variants)    
+        JSON["duration"] = video.duration
+        try:
+            JSON["views"] = video.views
+        except AttributeError:
+            JSON["views"] = -1 # invalid state for views.
+
+        return JSON
+
+    def _serialize_place(self, place: Union[Place, None]):
+        JSON = {}
+
+        if place is None:
+            return place
+        if not isinstance(place, Place):
+            raise TypeError(f"place should be of type None or Place. {type(place)} was found instead.")
+
+        JSON["full_name"] = place.fullName
+        JSON["name"] = place.name
+        JSON["type"] = place.type
+        JSON["country"] = place.country
+        JSON["country_code"] = place.countryCode 
+
+        return JSON
+
+    def _serialize_coordinates(self, coordinates: Union[Coordinates, None]):
+        JSON = {}
+
+        if coordinates is None:
+            return coordinates
+        if not isinstance(coordinates, Coordinates):
+            raise TypeError(f"coordinates should be of type None or Coordinates. {type(coordinates)} was found instead.")
+
+        JSON["longitude"] = coordinates.longitude
+        JSON["latitude"] = coordinates.latitude
+
+        return JSON
+
+    def _serialize_video_variants(self, variants: Union[None, List[VideoVariant]]):
+        JSON = []
+
+        if variants is None:
+            return []
+        for variant in variants:
+            if not isinstance(variant, VideoVariant):
+                raise TypeError(f"variants should be of type None or List[VideoVariant]. One of the elements inside was a {type(variant)} instead.")
+
+        for variant in variants:
+            try:
+                bitrate = variant.bitrate
+            except AttributeError:
+                bitrate = -1
+            JSON.append({
+                "url": variant.url,
+                "bitrate": bitrate,
+                "content_type": variant.contentType
+            })
+
+        return JSON
+
     def __call__(self, tweet: Tweet, to="json"):
         '''serialize tweet.'''
         JSON = {}
@@ -81,7 +197,7 @@ class TweetSerializer:
             JSON["outlinks"] = tweet.outlinks # TODO: what does this do?
             
             JSON["tcooutlinks"] = tweet.tcooutlinks # TODO: what does this do?
-            JSON["media"] = tweet.media
+            JSON["media"] = self._serialize_media(tweet.media)
             # recursively convert nested tweet structure.
             if tweet.retweetedTweet:
                 JSON["retweeted_tweet"] = self(tweet.retweetedTweet)
@@ -98,8 +214,8 @@ class TweetSerializer:
                 JSON["mentioned_users"] = [self._serialize_user(user) for user in tweet.mentionedUsers]
             else:
                 JSON["mentioned_users"] = tweet.mentionedUsers
-            JSON["coordinates"] = tweet.coordinates
-            JSON["place"] = tweet.place
+            JSON["coordinates"] = self._serialize_coordinates(tweet.coordinates)
+            JSON["place"] = self._serialize_place(tweet.place)
             JSON["hashtags"] = tweet.hashtags
             JSON["cashtags"] = tweet.cashtags
 
@@ -158,13 +274,14 @@ class SNScrapeWrapper:
         return results
 
     def conversation(self, conversation_id: Union[str, int], do_backup: bool=False, backup_folder: Union[str, pathlib.Path]="/tmp/.backup/"):
+        from tqdm import tqdm
         '''get conversation using TwitterTweetScraper with the enum value of TwitterTweetScraperMode.RECURSE'''
         results = []
         conv_generator = TwitterTweetScraper(
             str(conversation_id), 
             TwitterTweetScraperMode.RECURSE
         ).get_items()
-        for tweet in conv_generator:
+        for tweet in tqdm(conv_generator):
             self._results_backup.append(tweet)
             results.append(self.serializer(tweet))
         # create a backup archive in case the user fails to save the returned results object.

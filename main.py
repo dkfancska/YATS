@@ -1,5 +1,4 @@
-from yats import (check_requirements, get_version,
-                  Scraper, BACKEND)
+from yats import Scraper, BACKEND
 
 
 def main(query, limit: int = 30):
@@ -25,6 +24,4 @@ def main(query, limit: int = 30):
 
 
 if __name__ == "__main__":
-    print("python version:", get_version())
-    check_requirements()
-    main("I like ice cream", 30)
+    main("PyQt5", 30)
