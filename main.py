@@ -67,7 +67,7 @@ if __name__ == "__main__":
     # main("मोदी समाचार", 30)
     # extract_dialogues("PyQt5_30_convo.json","PyQt5_extracted_dialogues.json")
     limit = 30
-    query = "bitcoin growth"
-    main(query, limit)
+    query = "PyQt5"
+    # main(query, limit)
     extract_dialogues(f"{query}_{limit}_convo.json", 
                       f"{query}_extracted_dialogues.json")

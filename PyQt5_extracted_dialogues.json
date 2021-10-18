@@ -1,14 +1,5 @@
 [
     [
-        "Error: could not build wheel for sip use PEP 517 and cannot be installed directly\nhttps://t.co/RhnVSCPQKQ\n#pip #pyqt5 #pep517"
-    ],
-    [
-        "[定期]Pythonでイコライザ風GUIを作る③[PyQt5]\n イコライザ実装編です。\nhttps://t.co/GXmAaNsr4t \n#Python\n#プログラミング\n#ブロガー"
-    ],
-    [
-        "[定期]Pythonでイコライザ風GUIを作る②[PyQt5]\n 関数呼び出し編です。\nhttps://t.co/RZmG4iBvD9 \n#Python\n#プログラミング\n#ブロガー"
-    ],
-    [
         "Anyone know how to fix the QT plug-in not working on windows 10?",
         "I have searched up videos on how to fix it and the pyqt5_tools does not exist on my PC so I cannot even fix it?"
     ],
@@ -18,9 +9,6 @@
         "@Tekcro @DereckRd2 @okamicreations",
         "@MixrVAL @Tekcro @DereckRd2 @DereckRd2 I just build computers",
         "@okamicreations @MixrVAL @Tekcro Hi. I do it for living  :)))))))"
-    ],
-    [
-        "⚡ PyQt5 Tutorial - Setup and a Basic GUI Application \n@TechWithTimm #Python #PyQT #QT5 #Tutorial\nhttps://t.co/oGkP1NIr44"
     ],
     [
         "No classes today !\nI guess it's time to work on some side projects ! \nI wanted to create a full fledged text editor with custom key shortcuts !\nIf you have some ideas let me know 😄",
@@ -45,57 +33,15 @@
         "@sqaarf Also i have tested it work in raspberry too"
     ],
     [
-        "[定期]Pythonでイコライザ風GUIを作る[PyQt5]\n https://t.co/ta6UNHYhjW \n#Python\n#プログラミング\n#ブロガー"
-    ],
-    [
-        "📝 Yeni Konu: \"Lider Kurulum Hatası\"\nKullanıcı: \"Aydoğan\"\n\nPardus 19.5 sunucu versiyonunda Sunucu Kurulumu(Lider) - Liderahenk Dokümanlar dökümanından Liderahenk kurulum yaptığımda\nsudo apt-get install python3-paramiko python3-pyqt5 pip python3-psutil… https://t.co/H8eK16R33X"
-    ],
-    [
-        "pycharm pyqgis pytest run configuration importerror PyQt5 with pipenv https://t.co/PuHUog3roa #GISStackExchange"
-    ],
-    [
-        "Make Your Own Chrome Browser with Python PyQt5: https://t.co/E09jRHfGgO #Python #Programming #Coding #SoftwareDevelopment #Python3"
-    ],
-    [
-        "An interactive MiniMap made with Python, PyQT5 &amp; Pytesseract for the game \"New World\"\n\n✅ #coding #dev #developer #programmer #programming #python #web #webdev https://t.co/5CHAeU2beC"
-    ],
-    [
-        "I just published Make Your Own Chrome Browser with Python PyQt5 https://t.co/J0yVRWoiFG \n#Python #pythonlearning #100DaysOfCode #100DaysOfPython"
-    ],
-    [
         "Alhumd'ullah, new project \"Text to speech -&gt; Content Creation\" 〽️ https://t.co/wM07kY4aD9",
         "ٳشتغلت علي بروجكت speech وقدرت أستخدم Cognitive service الخاصه ب Microsoft Azure فعرفت استخدم ال ApIs بتاعتهم في اني اعمل سيكونس Text-to-Speech وحول Input text بتاعي ل voice وأظبط  Gui بال Pyqt5 اللي حبيتها بصراحه والي فيها features كتير حلوه، ده Demo بسيط كده بي visualize ليه..",
         "- بقدر طبعا في الاول خالص ب Detect  اللغة اللي دخلالي كInput الاول باستخدام TextBlob وال LanguageDetector\n- الميزه بقي والحلو في الموضوع هو اني بقدر استخدمه لاي لغه مش بس كده دا كمان بعض اللغات بقدر اهندل لهجه معينه زي العربي اقدر استخدم اللهجة العربيه المصريه او العربيه السعوديه",
         "- كمان بقدر اتحكم في نوع ريتم ال voice بمعني اقدر اخليه Content Creator  او مثلا Custom بال SSML او Real Time\n- بصراحه انا عجبتني Azure اوي وفيها شغل تقيل وكبير بس اللي يذاكر ويحاول\nدي ال Api Documentation  لو حد حابب يشوفها \nhttps://t.co/JwK64NFgFK..."
     ],
     [
-        "Anyone know how to specify PyQt5 properly in https://t.co/CHynjMgTPC? There's nothing QT about this situation. No versions are found ever. Any way I try.\n#PyQt5 @pypi #Python"
-    ],
-    [
         "https://t.co/BDWYmKr9Fn\nNoki Dokiさんが作成されたlive collision viewer\nやっと実行できた\nかっこいい https://t.co/aAJK6O7jGo",
         "注意点\n(1) Dolphinは安定版でなく(最近の)Beta版か開発版をインストールすること\n(2) pip installなどでpyrr PyQt5 PyOpenGL (PyOpenGL_accelerateも?)をインストールしておくこと\n(3) run.batかhttps://t.co/yrQ1K3VbRLでなくpython https://t.co/XlVeGigfXTで実行すること",
         "@sup39x1207 right, run.bat and https://t.co/bf6oRLPPKE were from the underlying library and I forgot to update them 😅"
-    ],
-    [
-        "Projet en #Python (pyqt5) app desktop \"𝑂𝑟𝑔𝑎𝑛𝑖𝑠𝑎𝑡𝑒𝑢𝑟 𝐴𝑢𝑡𝑜𝑚𝑎𝑡𝑖𝑞𝑢𝑒 𝐷𝑒 𝑅𝑒́𝑝𝑒... https://t.co/aArQeB3ykg via @YouTube"
-    ],
-    [
-        "@pythonguis  The complete code section in Using PyQt5 Actions, Toolbars and Menus https://t.co/VaYeEJVexG does not render correctly in Chrome, seems something wrong with the HTML."
-    ],
-    [
-        "[定期]Pythonでイコライザ風GUIを作る[PyQt5]\n https://t.co/ta6UNHYhjW \n#Python\n#プログラミング\n#ブロガー"
-    ],
-    [
-        "#python3 #programming #coding #python #softwaredevelopment Make Your Own Chrome Browser with Python PyQt5 https://t.co/Rc5PnajSZH"
-    ],
-    [
-        "#python3 #programming #coding #python #softwaredevelopment Make Your Own Chrome Browser with Python PyQt5 https://t.co/qv2sQPUJMO"
-    ],
-    [
-        "Открытие второго окна в PyQt5 с использованием uic https://t.co/F2TmUALFRE"
-    ],
-    [
-        "Открытие второго окна в PyQt5 с использованием uic https://t.co/6ofi7ARilA"
     ],
     [
         "sepertinya saya menyerah wkwkwk",
@@ -110,9 +56,6 @@
         "@Minsaa30 Kok gitu"
     ],
     [
-        "@mfitzp How can I add text to your toggle switch widget in PyQt5? Using setText() like I would for a normal checkbox doesn't seem the work.  I could just add a separate label but I was wondering if there was a better solution.  Thanks!"
-    ],
-    [
         "br nulis satu paragraf udah mikir mau self reward. kebiasaan",
         "@youranxietyyy baru buka laptop langsung pgn jajan",
         "@squeezeeyy AHAHAHAH PARAH"
@@ -120,14 +63,5 @@
     [
         "br nulis satu paragraf udah mikir mau self reward. kebiasaan",
         "@youranxietyyy 💪💪💪"
-    ],
-    [
-        "Minimizar al tray un programa hecho en PyQt5 #Programacion #Python #Aplicaciones https://t.co/hGcIIoQVfR https://t.co/MphWwvTfLK https://t.co/mrDRHECamC"
-    ],
-    [
-        "تحميل و تثبيت برنامج Qt Designer للبدء في مجال برمجة تطبيقات سطح المكتب عبر مكتبة بايثون PyQt5 .\nhttps://t.co/6mGrLbJChn\n\nقناتنا في تيليجرام https://t.co/U6rVnMpMsi\n\n#Qt_Designer"
-    ],
-    [
-        "Pyabr OSはデスクトップ環境はPyQt5で書いたオリジナルのものを使っているのか。他にもpython推しなディストリビューションなんだな。　https://t.co/rJMhvl718z: Put the fun back into computing. Use Linux, BSD. https://t.co/tDZl74o7Po"
     ]
 ]
