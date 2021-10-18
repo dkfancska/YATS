@@ -275,7 +275,7 @@ class SNScrapeWrapper:
 
         return results
 
-    def conversation(self, conversation_id: Union[str, int], do_backup: bool=False, backup_folder: Union[str, pathlib.Path]="/tmp/.backup/"):
+    def conversation(self, conversation_id: Union[str, int], do_backup: bool=False, backup_path: Union[str, pathlib.Path]="/tmp/backup.json"):
         from tqdm import tqdm
         '''get conversation using TwitterTweetScraper with the enum value of TwitterTweetScraperMode.RECURSE'''
         results = []
@@ -294,9 +294,7 @@ class SNScrapeWrapper:
             results.append(self.serializer(tweet))
         # create a backup archive in case the user fails to save the returned results object.
         if do_backup:
-            os.makedirs(backup_folder, exist_ok=True)
-            fname = os.path.join(backup_folder, f"{time.time()}")
-            with open(fname, "wb") as f:
+            with open(backup_path, "wb") as f:
                 pkl.dump(self._results_backup, f)
 
         return results
