@@ -213,4 +213,3 @@ if __name__ == "__main__":
     for node in nodes.values():
         if node.isLeaf:
             print(node.tolist())
-    

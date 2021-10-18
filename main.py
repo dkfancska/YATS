@@ -1,5 +1,30 @@
+import json
+from tqdm import tqdm
+from yats.tree import buildTree
 from yats import Scraper, BACKEND
 
+
+def extract_dialogues(path: str, save_as: str):
+    with open(path) as f:
+        data = json.load(f)
+    print("building conversation trees!")
+    trees = []
+    conversations = []
+    for conversation in tqdm(data.values()):
+        tree = buildTree(conversation)
+        trees.append(tree)
+    print("extracting conversations (root to leaf paths)!")
+    for tree in tqdm(trees):
+        for node in tree.values():
+            if not node.isLeaf: continue
+            conversations.append(node.tolist())
+    print("extracted", len(conversations), "conversations!")
+    with open(save_as, "w", encoding="utf-8") as f:
+        f.write(json.dumps(
+            conversations, 
+            ensure_ascii=False,
+            indent=4,
+        ))
 
 def main(query, limit: int = 30):
     import json
@@ -29,4 +54,6 @@ def main(query, limit: int = 30):
 
 if __name__ == "__main__":
     # main("アイスクリームが好きです", 30)
-    main("मोदी समाचार", 30)
+    # main("मोदी समाचार", 30)
+    extract_dialogues("PyQt5_30_convo.json", 
+                      "PyQt5_extracted_dialogues.json")
