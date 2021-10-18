@@ -10,9 +10,11 @@ from enum import Enum, auto
 from typing import Union, List
 try:
     from .utils import *
+    from .base import ScraperException
     from .snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, Gif, User, Photo, Video, Place, Medium, VideoVariant, Coordinates, TwitterTweetScraperMode
 except ImportError: 
     from yats.utils import *
+    from yats.base import ScraperException
     from yats.snscrape import TwitterSearchScraper, TwitterTweetScraper, Tweet, Gif, User, Photo, Video, Place, Medium, VideoVariant, Coordinates, TwitterTweetScraperMode
 except SyntaxError:
     pass
@@ -277,10 +279,16 @@ class SNScrapeWrapper:
         from tqdm import tqdm
         '''get conversation using TwitterTweetScraper with the enum value of TwitterTweetScraperMode.RECURSE'''
         results = []
-        conv_generator = TwitterTweetScraper(
-            str(conversation_id), 
-            TwitterTweetScraperMode.RECURSE
-        ).get_items()
+        try:
+            conv_generator = TwitterTweetScraper(
+                str(conversation_id), 
+                TwitterTweetScraperMode.RECURSE
+            ).get_items()
+        except ScraperException:
+            # catch exceptions and return empty list.
+            print(f"failed to get {conversation_id}")
+            return []
+
         for tweet in tqdm(conv_generator):
             self._results_backup.append(tweet)
             results.append(self.serializer(tweet))

@@ -20,8 +20,13 @@ def main(query, limit: int = 30):
         pbar.set_description(f"tot={total_len}, avg={avg_len:.2f}")
 
     with open(f"{query}_{limit}_convo.json", "w") as f:
-        json.dump(conversations, f, indent=4)
-
+        f.write(json.dumps(
+            conversations,
+            ensure_ascii=False,
+            indent=4,
+        ))
+        # json.dump(conversations, f, indent=4)
 
 if __name__ == "__main__":
-    main("PyQt5", 30)
+    # main("アイスクリームが好きです", 30)
+    main("मोदी समाचार", 30)

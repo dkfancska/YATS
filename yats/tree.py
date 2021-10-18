@@ -204,9 +204,11 @@ if __name__ == "__main__":
     # path to root.
     for node in nodes.values():
         print(node.pathToRoot()) # last element is the root.
+    
     # list format (return list of conversation text till now).
     # for node in nodes.values():
     #     print(node.tolist())
+    
     # list all coversations.
     for node in nodes.values():
         if node.isLeaf:
